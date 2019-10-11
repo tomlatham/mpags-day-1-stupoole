@@ -7,7 +7,7 @@
 #include <string>
 
 void printString(){
-  std::string message {"Hello world?"};
+  const std::string message {"Hello world?"};
   std::cout << message << "\n";
 }
 
