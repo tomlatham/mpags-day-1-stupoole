@@ -4,16 +4,25 @@
 
 #include "MPAGSCipher.h"
 #include <iostream>
+#include <string>
+
+void printString(){
+  std::string message {"Hello world?"};
+  std::cout << message << "\n";
+}
+
 int main()
 {
-//    This prints hello world to console
+    //This prints hello world to console
     std::cout << "Hello World \n";
 
-    int an_int{1};
-    double a_double{1.111};
-    an_int ++;
-    a_double ++;
-    std::cout << a_double << std::endl;
-    std::cout << an_int << std::endl;
-
+    int anInt{1};
+    double aDouble{1.111};
+    anInt++;
+    aDouble++;
+    std::cout << aDouble << std::endl;
+    std::cout << anInt << std::endl;
+    printString();
+    return 0;
 }
+
