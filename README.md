@@ -14,3 +14,10 @@ A simple command line tool for encrypting/decrypting text using classical cipher
 CLion
 
 Github
+
+#My Coding Standards
+
+* Types start with capitals: `MyClass`
+* functions start with lower case: `myMethod`
+* Variables are camel case: `my_variable`
+* constants are all capital: `const int PI_APPROX=3`
