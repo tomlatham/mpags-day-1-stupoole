@@ -54,34 +54,7 @@ std::string convertToWord(char input){
 
 }
 
-void exercise1(){  std::cout << "Hello World \n";}
 
-void exercise2(){
-  int anInt{1};
-  double aDouble{1.111};
-  anInt++;
-  aDouble++;
-  std::cout << aDouble << std::endl;
-  std::cout << anInt << std::endl;
-}
-
-void exercise3(){
-  const std::string message {"Hello world?"};
-  std::cout << message << "\n";
-}
-
-void exercise4(){
-  double d{6.6};
-  int i{4};
-  int j{5};
-  print(i*d);
-  print(d/i);
-  print(i/j);
-  std::string abcd {"Doppelkopf is hard"};
-  char e {'e'};
-  print(e);
-
-}
 
 int main(int argc, char* argv[])
 {
@@ -115,37 +88,6 @@ int main(int argc, char* argv[])
     }
   }
 
-//  This commented section converts anything typed into uppercase and replaces numbers with words.
-//  char in_char{'x'};
-//  std::string end_string;
-//  std::string in_string;
-//  while (std::cin >> in_char){
-//    in_string = "";
-//    if (!isalnum(in_char)){
-//      continue;
-//    }
-//    else if (isNumber(in_char)){
-//      in_string = convertToWord(in_char);
-////      print(in_string);
-//    } else if (islower(in_char)){
-//      char temp_char = toupper(in_char);
-//      in_string += temp_char;
-////      print(in_string);
-//    }
-//    else{
-//      in_string += in_char;
-//    }
-//    end_string += in_string;
-//    print(end_string);
-//  }
-
-
-  //These commented lines print various test outputs such as "hello world" to console
-  //  exercise1();
-  //  exercise2();
-  //  exercise3();
-  //  exercise4();
-  //  return 0;
 
 }
 
