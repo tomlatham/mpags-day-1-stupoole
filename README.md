@@ -17,7 +17,7 @@ Github
 
 #My Coding Standards
 
-* Types start with capitals: `MyClass`
-* functions start with lower case: `myMethod`
-* Variables are camel case: `my_variable`
-* constants are all capital: `const int PI_APPROX=3`
+* Types are camelcase starting with capitals: `MyClass`
+* functions are camelcase starting with lower case: `myMethod`
+* Variables are snake case: `my_variable`
+* constants are all capital: `MY_CONST`

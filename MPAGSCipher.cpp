@@ -5,7 +5,11 @@
 #include "MPAGSCipher.h"
 #include <iostream>
 #include <string>
+#include <vector>
 // These print functions take the different known variable types we would like to print and prints them. This is a shorthand for std::cout
+
+const std::string VERSION = "Development version: 0.0.0.19.10.13";
+
 void print(double input) { std::cout << input << std::endl;}
 
 void print(int input) { std::cout << input << std::endl;}
@@ -79,8 +83,61 @@ void exercise4(){
 
 }
 
-int main()
+int main(int argc, char* argv[])
 {
+  // This section processes the input arguments -h --help --version -i and -o. Loop starts at 1 because 0 is the program call.
+  const std::vector<std::string> CMDLINEARGS {argv, argv+argc};
+  for (int i=1; i<argc; i++)
+  {
+    std::string arg = argv[i];
+    if (arg=="-h"|arg=="--help")
+    {
+      std::string helpstr = "Usage: ./mpags-cipher.o <inputfile>\nOptions: \n -h or --help  Display this help text.\n -o <outputfile>  chooses a filename. If blank file will be saved with inputfile name appended with '_out'";
+      print(helpstr);
+    } else if(arg=="-i") {
+      // gets next argument and assigns this to the output file name.
+      i++;
+      const std::string INPUT_FILE_NAME = argv[i];
+      print(INPUT_FILE_NAME);
+    } else if(arg=="-o") {
+      // gets next argument and assigns this to the output file name.
+      i++;
+      const std::string OUTPUT_FILE_NAME = argv[i];
+      print(OUTPUT_FILE_NAME);
+    } else if (arg=="-k") {
+      i++;
+      const int KEY  = std::stoi(argv[i]);
+    } else if (arg=="--version") {
+      print(VERSION);
+    } else {
+      print(std::string{"Unexpected input argument: "} + arg);
+      break;
+    }
+  }
+
+//  This commented section converts anything typed into uppercase and replaces numbers with words.
+//  char in_char{'x'};
+//  std::string end_string;
+//  std::string in_string;
+//  while (std::cin >> in_char){
+//    in_string = "";
+//    if (!isalnum(in_char)){
+//      continue;
+//    }
+//    else if (isNumber(in_char)){
+//      in_string = convertToWord(in_char);
+////      print(in_string);
+//    } else if (islower(in_char)){
+//      char temp_char = toupper(in_char);
+//      in_string += temp_char;
+////      print(in_string);
+//    }
+//    else{
+//      in_string += in_char;
+//    }
+//    end_string += in_string;
+//    print(end_string);
+//  }
 
 
   //These commented lines print various test outputs such as "hello world" to console
@@ -89,31 +146,6 @@ int main()
   //  exercise3();
   //  exercise4();
   //  return 0;
-
-  char in_char{'x'};
-  std::string end_string;
-  std::string in_string;
-  while (std::cin >> in_char){
-    in_string = "";
-    if (!isalnum(in_char)){
-      continue;
-    }
-    else if (isNumber(in_char)){
-      in_string = convertToWord(in_char);
-//      print(in_string);
-    } else if (islower(in_char)){
-      char temp_char = toupper(in_char);
-      in_string += temp_char;
-//      print(in_string);
-    }
-    else{
-      in_string += in_char;
-    }
-    end_string += in_string;
-    print(end_string);
-  }
-
-
 
 }
 
