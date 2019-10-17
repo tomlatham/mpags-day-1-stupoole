@@ -11,11 +11,11 @@ const std::string VERSION = "Development version: 0.0.0.19.10.13";
 
 //void print(double input) { std::cout << input << std::endl;}
 
-void print(int input) { std::cout << input << std::endl;}
+//void print(int input) { std::cout << input << std::endl;}
 
 //void print(char input) { std::cout << input << std::endl;}
 
-void print(const std::string& input) { std::cout << input << std::endl;}
+//void print(const std::string& input) { std::cout << input << std::endl;}
 
 // Checks if an input character is a number
 //bool isNumber(char input){
@@ -25,65 +25,141 @@ void print(const std::string& input) { std::cout << input << std::endl;}
 //}
 
 // returns the written word form of an input number
-//std::string convertToWord(char input){
-//  switch(input){
-//  case '1':
-//    return "ONE";
-//  case '2':
-//    return "TWO";
-//  case '3':
-//    return "THREE";
-//  case '4':
-//    return "FOUR";
-//  case '5':
-//    return "FIVE";
-//  case '6':
-//    return "SIX";
-//  case '7':
-//    return "SEVEN";
-//  case '8':
-//    return "EIGHT";
-//  case '9':
-//    return "NINE";
-//  case '0':
-//    return "TEN";
-//  default:
-//    return "";
-//  }
-//
-//}
+std::string convertToWord(const char input){
+  switch(input){
+  case '1':
+    return "ONE";
+  case '2':
+    return "TWO";
+  case '3':
+    return "THREE";
+  case '4':
+    return "FOUR";
+  case '5':
+    return "FIVE";
+  case '6':
+    return "SIX";
+  case '7':
+    return "SEVEN";
+  case '8':
+    return "EIGHT";
+  case '9':
+    return "NINE";
+  case '0':
+    return "TEN";
+  default:
+    return "";
+  }
+}
 
 int main(int argc, char* argv[])
 {
-  // This section processes the input arguments -h --help --version -i and -o. Loop starts at 1 because 0 is the program call.
+  // Convert the command-line arguments into a more easily usable form
   const std::vector<std::string> CMD_LINE_ARGS {argv, argv+argc};
-  for (int i=1; i<argc; i++)
+
+  // Add a typedef that assigns another name for the given type for clarity
+  typedef std::vector<std::string>::size_type size_type;
+  const size_type N_CMD_LINE_ARGS {CMD_LINE_ARGS.size()};
+
+  // Options that might be set by the command-line arguments
+  bool helpRequested {false};
+  bool versionRequested {false};
+  std::string inputFile {""};
+  std::string outputFile {""};
+
+  // This section processes the input arguments -h --help --version -i and -o. Loop starts at 1 because 0 is the program call.
+  for (size_type i{1}; i<N_CMD_LINE_ARGS; i++)
   {
-    std::string arg = argv[i];
+    std::string arg = CMD_LINE_ARGS[i];
     if (arg=="-h"|arg=="--help")
     {
-      std::string helpStr = "Usage: ./mpags-cipher.o <inputfile>\nOptions: \n -h or --help  Display this help text.\n -o <outputfile>  chooses a filename. If blank file will be saved with inputfile name appended with '_out'";
-      print(helpStr);
+      helpRequested = true;
     } else if(arg=="-i") {
       // gets next argument and assigns this to the output file name.
+      if (i == N_CMD_LINE_ARGS-1) {
+        std::cerr << "[error] -i requires a filename argument" << std::endl;
+        // exit main with non-zero return to indicate failure
+        return 1;
+      }
       i++;
-      const std::string INPUT_FILE_NAME = argv[i];
-      print(INPUT_FILE_NAME);
+      inputFile = CMD_LINE_ARGS[i];
     } else if(arg=="-o") {
       // gets next argument and assigns this to the output file name.
+      if (i == N_CMD_LINE_ARGS-1) {
+        std::cerr << "[error] -o requires a filename argument" << std::endl;
+        // exit main with non-zero return to indicate failure
+        return 1;
+      }
       i++;
-      const std::string OUTPUT_FILE_NAME = argv[i];
-      print(OUTPUT_FILE_NAME);
-    } else if (arg=="-k") {
-      i++;
-      const int KEY  = std::stoi(argv[i]);
-      print(KEY);
+      outputFile = CMD_LINE_ARGS[i];
+    //} else if (arg=="-k") {
+      //i++;
+      //const int KEY  = std::stoi(CMD_LINE_ARGS[i]);
+      //print(KEY);
     } else if (arg=="--version") {
-      print(VERSION);
+      versionRequested = true;
     } else {
-      print(std::string{"Unexpected input argument: "} + arg);
-      break;
+      std::cerr << "Unexpected input argument: " << arg << std::endl;
+      return 1;
     }
   }
+
+  // Handle help, if requested
+  if (helpRequested) {
+    // Line splitting for readability
+    std::cout
+      << "Usage: mpags-cipher [-i <file>] [-o <file>]\n\n"
+      << "Encrypts/Decrypts input alphanumeric text using classical ciphers\n\n"
+      << "Available options:\n\n"
+      << "  -h|--help        Print this help message and exit\n\n"
+      << "  --version        Print version information\n\n"
+      << "  -i FILE          Read text to be processed from FILE\n"
+      << "                   Stdin will be used if not supplied\n\n"
+      << "  -o FILE          Write processed text to FILE\n"
+      << "                   Stdout will be used if not supplied\n\n";
+    // Help requires no further action, so return from main
+    // with 0 used to indicate success
+    return 0;
+  }
+
+  // Handle version, if requested
+  // Like help, requires no further action,
+  // so return from main with zero to indicate success
+  if (versionRequested) {
+    std::cout << VERSION << std::endl;
+    return 0;
+  }
+
+  // Read in user input from stdin/file
+  // Warn that input file option not yet implemented
+  if (!inputFile.empty()) {
+    std::cout << "[warning] input from file ('"
+      << inputFile
+      << "') not implemented yet, using stdin\n";
+  }
+
+  char in_char{'x'};
+  std::string end_string;
+  while (std::cin >> in_char){
+    if (!isalnum(in_char)){
+      continue;
+    }
+    else if (isalpha(in_char)){
+      end_string += toupper(in_char);
+    }
+    else {
+      end_string += convertToWord(in_char);
+    }
+  }
+
+  // Output the transliterated text
+  // Warn that output file option not yet implemented
+  if (!outputFile.empty()) {
+    std::cout << "[warning] output to file ('"
+      << outputFile
+      << "') not implemented yet, using stdout\n";
+  }
+
+  std::cout << end_string << std::endl;
 }
 

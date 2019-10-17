@@ -1,3 +1,0 @@
-/home/stu/CLionProjects/mpags-cipher.git/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/stu/CLionProjects/mpags-cipher.git/cmake-build-debug/CMakeFiles/mpags-cipher.o.dir
-/home/stu/CLionProjects/mpags-cipher.git/cmake-build-debug/CMakeFiles/edit_cache.dir
